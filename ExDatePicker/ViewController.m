@@ -9,6 +9,10 @@
 #import "ViewController.h"
 
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
+@property (weak, nonatomic) IBOutlet UITextField *yearf;
+@property (weak, nonatomic) IBOutlet UITextField *monthf;
+@property (weak, nonatomic) IBOutlet UITextField *dayf;
 
 @end
 
@@ -18,6 +22,17 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+}
+- (IBAction)pickerChanged:(id)sender {
+	NSLog(@"pickerChanged");
+	NSDate *sd = self.datePicker.date;
+	
+	NSCalendar *calendar = [NSCalendar currentCalendar];
+	NSInteger flag = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
+	NSDateComponents *comp = [calendar components:flag fromDate:sd];
+	self.yearf.text = [NSString stringWithFormat:@"%d", [comp year]];
+	self.monthf.text = [NSString stringWithFormat:@"%d", [comp month]];
+	self.dayf.text = [NSString stringWithFormat:@"%d", [comp day]];
 }
 
 - (void)didReceiveMemoryWarning
